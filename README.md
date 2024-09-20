@@ -5,7 +5,7 @@ Install necessary libraries and run decision model.
 npm install
 node app.js
 ```
-The devision model is served at localhost:3000.
+The decision model is served at localhost:3000.
 
 <img src="public/images/decision-model-screenshot2.png" width="700px"></img>
 
@@ -17,6 +17,7 @@ After answering all questions the result page is shown, with the best-fitting da
 
 <hr>
 Copyright:
+
 amazon-neptune.png - Amazon, https://gallery.ecr.aws/neptune/
 
 anzograph.png - dbdb.io, https://dbdb.io/db/anzograph/
