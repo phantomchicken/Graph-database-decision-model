@@ -24,23 +24,106 @@ function showDatabaseDetails(db) {
   }  
   
   
-const questions = [
+  const questions = [
     {
-      question: "What type of data do you mostly handle?",
+      question: "Do you need to work with other data types as well?",
       answers: [
-        { text: "RDF", points: { 'Stardog': 10, 'GraphDB': 8, 'Neo4j': 2, 'TigerGraph': 2 } },  // Small points for Neo4j and TigerGraph, as they're LPG-focused
-        { text: "LPG", points: { 'Neo4j': 10, 'TigerGraph': 8, 'GraphDB': 2, 'Stardog': 2 } }   // Small points for GraphDB and Stardog, as they're RDF-focused
+        { text: "Object", points: { 'OrientDB': 10 } },
+        { text: "Column", points: { 'Azure Cosmos DB': 10, 'DataStax': 10 } },
+        { text: "Document", points: { 'ArangoDB': 10, 'Azure Cosmos DB': 10, 'OrientDB': 10 } },
+        { text: "Key-value", points: { 'ArangoDB': 10, 'Azure Cosmos DB': 10, 'OrientDB': 10 } }
+      ]
+    },
+    {
+      question: "Do you require an LPG, RDF model or both?",
+      answers: [
+        { text: "LPG", points: { 'Neo4j': 10, 'Memgraph': 10, 'TigerGraph': 10, 'NebulaGraph': 10, 'ArangoDB': 10, 'Azure Cosmos DB': 10, 'OrientDB': 10, 'DataStax': 10, 'HyperGraphDB': 10, 'TerminusDB': 10, 'JanusGraph': 10 } },
+        { text: "RDF", points: { 'Stardog': 10, 'GraphDB': 10, 'Amazon Neptune': 10, 'OracleGraph': 10, 'AnzoGraph': 10 } },
+        { text: "Both", points: { 'Amazon Neptune': 10, 'OracleGraph': 10, 'AnzoGraph': 10 } }
+      ]
+    },
+    {
+      question: "Do you require hyperedge support?",
+      answers: [
+        { text: "Yes", points: { 'HyperGraphDB': 10 } },
+        { text: "No", points: {} }
+      ]
+    },
+    {
+      question: "Do you wish to have native integration with other apps from an ecosystem?",
+      answers: [
+        { text: "Yes", points: { 'Amazon Neptune': 10, 'Azure Cosmos DB': 10, 'OracleGraph': 10 } },
+        { text: "No", points: {} }
+      ]
+    },
+    {
+      question: "Do you require parallel processing?",
+      answers: [
+        { text: "Yes", points: { 'Neo4j': 10, 'TigerGraph': 10, 'AnzoGraph': 10 } },
+        { text: "No", points: {} }
+      ]
+    },
+    {
+      question: "Do you wish to save your data in-memory?",
+      answers: [
+        { text: "Yes", points: { 'Memgraph': 10, 'TerminusDB': 10 } },
+        { text: "No", points: {} }
+      ]
+    },
+    {
+      question: "Do you require advanced RDF functionalities: reasoning, SHACL, federated queries?",
+      answers: [
+        { text: "Yes", points: { 'Stardog': 10, 'GraphDB': 10, 'Amazon Neptune': 10, 'DataStax': 10 } },
+        { text: "No", points: {} }
+      ]
+    },
+    {
+      question: "Do you need native streaming capabilities?",
+      answers: [
+        { text: "Yes", points: { 'Memgraph': 10, 'TigerGraph': 10, 'NebulaGraph': 10 } },
+        { text: "No", points: {} }
       ]
     },
     {
       question: "Do you need high horizontal scalability?",
       answers: [
-        { text: "Yes", points: { 'TigerGraph': 10, 'Neo4j': 5, 'GraphDB': 2, 'Stardog': 2 } },   // Larger points for TigerGraph and Neo4j, as they scale well
-        { text: "No", points: { 'GraphDB': 5, 'Stardog': 3, 'Neo4j': 2, 'TigerGraph': 2 } }     // Small points for Neo4j and TigerGraph, as they still scale
+        { text: "Yes", points: { 'TigerGraph': 10, 'NebulaGraph': 10 } },
+        { text: "No", points: {} }
       ]
     },
-    // Add more questions here...
+    {
+      question: "Do you require analytics (as opposed to just transactions)?",
+      answers: [
+        { text: "Yes", points: { 'Neo4j': 10, 'Memgraph': 10, 'TigerGraph': 10, 'Amazon Neptune': 10, 'Azure Cosmos DB': 10 } },
+        { text: "No", points: {} }
+      ]
+    },
+    {
+      question: "Does your database need to be easy to use?",
+      answers: [
+        { text: "Yes", points: { 'Neo4j': 10, 'Memgraph': 10 } },
+        { text: "No", points: {} }
+      ]
+    },
+    {
+      question: "Do you require native graph algorithms?",
+      answers: [
+        { text: "Yes", points: { 'Neo4j': 10, 'Memgraph': 10, 'TigerGraph': 10, 'Amazon Neptune': 5, 'Azure Cosmos DB': 5 } },
+        { text: "No", points: {} }
+      ]
+    },
+    {
+      question: "Which query language would you like to work with? Cypher",
+      answers: [
+        { text: "Cypher", points: { 'Neo4j': 10, 'Memgraph': 10 } },
+        { text: "SPARQL", points: { 'Stardog': 10, 'GraphDB': 10, 'Amazon Neptune': 10, 'AnzoGraph': 10 } },
+        { text: "Gremlin", points: { 'Amazon Neptune': 10, 'Azure Cosmos DB': 10, 'DataStax': 10, 'JanusGraph': 10 } },
+        { text: "GraphQL", points: { 'Dgraph': 10 } },
+        { text: "Custom/other", points: { 'TigerGraph': 10, 'NebulaGraph': 10, 'ArangoDB': 10, 'OrientDB': 10, 'HyperGraphDB': 10, 'TerminusDB': 10, 'OracleGraph': 10 } }
+      ]
+    }
   ];
+  
   
   let currentQuestionIndex = 0;
   let score = {};

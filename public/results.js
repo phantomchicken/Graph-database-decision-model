@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (quizResults && quizResults.length > 0) {
       quizResults.forEach(result => {
         // Find the database from the databaseTable instead of databases
+        console.log(result)
         const db = databaseTable.find(database => database.name === result.name);
   
         // Create list item for each database result

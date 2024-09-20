@@ -171,7 +171,7 @@ const databaseTable = [
       link: 'https://aws.amazon.com/neptune'
     },
     {
-      name: 'Azure CosmosDB',
+      name: 'Azure Cosmos DB',
       type: 'Multi-model',
       pricing: 'Pay-as-you-go',
       support: 'Moderate',
@@ -215,7 +215,7 @@ const databaseTable = [
       support: 'Good',
       serializability: 'CSV, JSON',
       ui: 'DataStax Studio',
-      querying: 'Gremlin',
+      querying: 'CQL',
       transactions: 'No',
       analytics: 'Moderate',
       concurrency: 'Optimistic',
@@ -234,7 +234,7 @@ const databaseTable = [
       support: 'Community',
       serializability: 'JSON, GraphSON',
       ui: 'Web UI',
-      querying: 'HGQL',
+      querying: 'Java',
       transactions: 'Yes',
       analytics: 'Moderate',
       concurrency: 'MVCC',
@@ -244,7 +244,7 @@ const databaseTable = [
       backup: 'Cold',
       security: 'None',
       description: 'An open-source database focused on hypergraphs.',
-      link: 'http://www.hypergraphdb.org'
+      link: 'https://hypergraphdb.org/'
     },
     {
       name: 'TerminusDB',
@@ -291,7 +291,7 @@ const databaseTable = [
       support: 'Enterprise',
       serializability: 'CSV, JSON, RDF/XML',
       ui: 'GraphStudio',
-      querying: 'SPARQL, GSQL',
+      querying: 'SPARQL',
       transactions: 'Yes',
       analytics: 'Great',
       concurrency: 'MVCC',
@@ -301,7 +301,7 @@ const databaseTable = [
       backup: 'Hot',
       security: 'RBAC, SSL',
       description: 'A massively parallel graph database for advanced analytics.',
-      link: 'https://anzograph.com'
+      link: 'https://cambridgesemantics.com/anzograph/'
     },
     {
       name: 'JanusGraph',
