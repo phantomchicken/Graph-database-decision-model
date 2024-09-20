@@ -1,3 +1,30 @@
+function showDatabaseDetails(dbName) {
+    const db = databaseTable.find(database => database.name === dbName);
+    
+    if (!db) {
+      return 'Details not available';
+    }
+  
+    return `
+      <strong>Type:</strong> ${db.type}<br>
+      <strong>Pricing:</strong> ${db.pricing}<br>
+      <strong>Support:</strong> ${db.support}<br>
+      <strong>Serializability:</strong> ${db.serializability}<br>
+      <strong>UI:</strong> ${db.ui}<br>
+      <strong>Querying:</strong> ${db.querying}<br>
+      <strong>Transactions:</strong> ${db.transactions}<br>
+      <strong>Analytics:</strong> ${db.analytics}<br>
+      <strong>Concurrency:</strong> ${db.concurrency}<br>
+      <strong>Indexing:</strong> ${db.indexing}<br>
+      <strong>Streaming:</strong> ${db.streaming}<br>
+      <strong>Scalability:</strong> ${db.scalability}<br>
+      <strong>Backup:</strong> ${db.backup}<br>
+      <strong>Security:</strong> ${db.security}
+    `;
+  }
+  
+  
+  
 const questions = [
     {
       question: "What type of data do you mostly handle?",
@@ -28,7 +55,7 @@ const questions = [
   let score = {};
   
   function updateBreadcrumbs() {
-    const breadcrumbs = document.getElementById('breadcrumbs');
+    const breadcrumbs = document.getElementById('progress-bar');
     breadcrumbs.innerHTML = '';
   
     questions.forEach((q, index) => {
@@ -115,10 +142,15 @@ const questions = [
     sortedResults.forEach(result => {
       const listItem = document.createElement('li');
       listItem.classList.add('list-group-item');
+      
+      // Fetch the table details for the database
+      const dbDetails = showDatabaseDetails(result.name);
+      
       listItem.innerHTML = `
         <strong><a href="${databases[result.name].link}" target="_blank" class="db-link">${result.name}</a></strong> (Score: ${result.score})<br>
         <img src="images/${result.name.toLowerCase()}.png" alt="${result.name}" class="img-fluid mb-2" style="max-width: 100px;"><br>
-        ${result.description}`;
+        ${result.description}<br>
+        ${dbDetails}`;  // Show the formatted table row details
       resultsList.appendChild(listItem);
     });
   
@@ -133,6 +165,7 @@ const questions = [
     restartButton.onclick = () => window.location.reload();
     resultsContainer.appendChild(restartButton);
   }
+  
   
   
   window.onload = loadQuestion;
