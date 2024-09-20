@@ -6,8 +6,72 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Graph DB Decision Model Results</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Floating Answers Block */
+    #answers-block {
+      position: fixed;
+      left: 10px;
+      top: 80px;
+      width: 350px;
+      max-height: 100%;
+      overflow-y: auto;
+      background-color: #f8f9fa;
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 8px;
+      z-index: 100;
+    }
+    /* Making the answer list scrollable */
+    #answers-list {
+      max-height: 700px;
+      overflow-y: auto;
+    }
+    .hover-card:hover {
+    outline: 2px solid #007bff; /* Primary blue outline */
+    transition: outline 0.2s ease-in-out;
+    }
+
+    /* Style the gray box around the Show More/Less button */
+    .gray-box {
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    }
+
+    .gray-box .icon {
+    margin-right: 5px;
+    }
+
+    .gray-box:hover {
+    background-color: #e0e0e0;
+    transition: background-color 0.2s ease-in-out;
+    }
+
+    /* Adjust the collapse button look */
+    .toggle-btn {
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+    }
+
+    .toggle-btn:hover {
+    color: #0056b3;
+    }
+
+  </style>
 </head>
 <body>
+  <div id="answers-block">
+    <h5>Your Answers</h5>
+    <ul id="answers-list" class="list-group">
+      <!-- Populated by JavaScript -->
+    </ul>
+  </div>
+
   <div class="container mt-5">
     <h1 class="text-center">Decision model results</h1>
     
@@ -29,6 +93,7 @@
   <script src="databaseTable.js"></script>
   <script src="results.js"></script>
   <script src="button.js"></script>
+  <script src="answers.js"></script> <!-- For handling the user's answers -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -113,7 +113,7 @@ function showDatabaseDetails(db) {
       ]
     },
     {
-      question: "Which query language would you like to work with? Cypher",
+      question: "Which query language would you like to work with?",
       answers: [
         { text: "Cypher", points: { 'Neo4j': 10, 'Memgraph': 10 } },
         { text: "SPARQL", points: { 'Stardog': 10, 'GraphDB': 10, 'Amazon Neptune': 10, 'AnzoGraph': 10 } },
@@ -159,12 +159,16 @@ function showDatabaseDetails(db) {
       const button = document.createElement('button');
       button.classList.add('btn', 'btn-outline-primary', 'm-2', 'w-50');  // Wider buttons
       button.innerText = answer.text;
-      button.onclick = () => addPoints(answer.points);
+  
+      // Pass the current question and selected answer text to addPoints
+      button.onclick = () => addPoints(answer.points, currentQuestion.question, answer.text);
+      
       answersElement.appendChild(button);
     });
   
     updateBreadcrumbs();  // Update breadcrumbs
   }
+  
   
   function nextQuestion() {
     currentQuestionIndex++;
@@ -189,13 +193,22 @@ function showDatabaseDetails(db) {
   
   
   
-  function addPoints(points) {
+  let quizAnswers = [];
+
+  function addPoints(points, question, selectedAnswer) {
     for (const db in points) {
       if (!score[db]) {
         score[db] = 0;
       }
       score[db] += points[db];
     }
+  
+    // Store the user's selected answer
+    quizAnswers.push({ question, selectedAnswer });
+  
+    // Save the answers to localStorage
+    localStorage.setItem('quizAnswers', JSON.stringify(quizAnswers));
+  
     currentQuestionIndex++;
     if (currentQuestionIndex < questions.length) {
       loadQuestion();
@@ -219,9 +232,6 @@ function showDatabaseDetails(db) {
   function showResults() {
     saveQuizResultsToStorage();  // Call the function to save results and redirect
   }
-  
-  
-  
   
   window.onload = loadQuestion;
   
