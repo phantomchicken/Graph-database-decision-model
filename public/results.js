@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (quizResults && quizResults.length > 0) {
         quizResults.forEach(result => {
             const db = databaseTable.find(database => database.name === result.name);
-
+            const dbNameId = db.name.replace(/\s+/g, '-').toLowerCase();
             // Create a col-md-6 div for two-column layout
             const listItem = document.createElement('div');
             listItem.classList.add('col-lg-6', 'col-12', 'mb-3'); // Two-column layout
@@ -61,24 +61,24 @@ document.addEventListener('DOMContentLoaded', () => {
               <div class="card h-100 hover-card">
                 <div class="card-body">
                   <strong><a href="${db?.link || '#'}" target="_blank">${db?.name || result.name}</a></strong> (Score: ${result.score})<br>
-                  <img src="images/${db?.name.toLowerCase()}.png" alt="${db?.name}" class="img-fluid mb-2" style="max-width: 100px;"><br>
+                  <img src="images/${dbNameId}.png" alt="${db?.name}" class="img-fluid mb-2" style="max-width: 100px;"><br>
                   ${db?.description || 'No description available.'}<br>
 
                   <!-- Collapsible Database Specifications -->
-                  <div class="gray-box p-2 mt-2" data-bs-toggle="collapse" data-bs-target="#specifications-${db.name}">
+                  <div class="gray-box p-2 mt-2" data-bs-toggle="collapse" data-bs-target="#specifications-${dbNameId}">
                     <span class="icon">▼</span> <span class="toggle-text">Show Database Specifications</span>
                   </div>
 
-                  <div id="specifications-${db.name}" class="collapse mt-1">
+                  <div id="specifications-${dbNameId}" class="collapse mt-1">
                     ${showDatabaseDetails(db)}
                   </div>
 
                   <!-- Collapsible Points Breakdown -->
-                  <div class="gray-box p-2 mt-2" data-bs-toggle="collapse" data-bs-target="#points-${db.name}">
+                  <div class="gray-box p-2 mt-2" data-bs-toggle="collapse" data-bs-target="#points-${dbNameId}">
                     <span class="icon">▼</span> <span class="toggle-text">Show Points Breakdown</span>
                   </div>
 
-                  <div id="points-${db.name}" class="collapse mt-1">
+                  <div id="points-${dbNameId}" class="collapse mt-1">
                     <h6>Points Breakdown:</h6>
                     <ul class="list-unstyled">${pointsBreakdown}</ul>
                   </div>

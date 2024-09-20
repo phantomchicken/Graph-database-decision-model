@@ -21,6 +21,12 @@
       border-radius: 8px;
       z-index: 100;
     }
+    @media (max-width: 1400px) {
+        #answers-block {
+            display: none;
+        }
+    }
+
     /* Making the answer list scrollable */
     #answers-list {
       max-height: 700px;
@@ -73,7 +79,7 @@
   </div>
 
   <div class="container mt-5">
-    <h1 class="text-center">Decision model results</h1>
+    <h1 class="text-center mb-3">Decision model results</h1>
     
     <div class="row" id="results-list"></div> <!-- Bootstrap row for two-column layout -->
     
