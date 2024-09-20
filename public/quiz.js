@@ -208,6 +208,9 @@ function showDatabaseDetails(db) {
   
     // Save the answers to localStorage
     localStorage.setItem('quizAnswers', JSON.stringify(quizAnswers));
+    // Save questions to localStorage
+    localStorage.setItem('questionsData', JSON.stringify(questions));
+
   
     currentQuestionIndex++;
     if (currentQuestionIndex < questions.length) {
