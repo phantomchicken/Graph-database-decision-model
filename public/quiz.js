@@ -1,28 +1,27 @@
-function showDatabaseDetails(dbName) {
-    const db = databaseTable.find(database => database.name === dbName);
-    
-    if (!db) {
-      return 'Details not available';
-    }
-  
+function showDatabaseDetails(db) {
     return `
-      <strong>Type:</strong> ${db.type}<br>
-      <strong>Pricing:</strong> ${db.pricing}<br>
-      <strong>Support:</strong> ${db.support}<br>
-      <strong>Serializability:</strong> ${db.serializability}<br>
-      <strong>UI:</strong> ${db.ui}<br>
-      <strong>Querying:</strong> ${db.querying}<br>
-      <strong>Transactions:</strong> ${db.transactions}<br>
-      <strong>Analytics:</strong> ${db.analytics}<br>
-      <strong>Concurrency:</strong> ${db.concurrency}<br>
-      <strong>Indexing:</strong> ${db.indexing}<br>
-      <strong>Streaming:</strong> ${db.streaming}<br>
-      <strong>Scalability:</strong> ${db.scalability}<br>
-      <strong>Backup:</strong> ${db.backup}<br>
-      <strong>Security:</strong> ${db.security}
+      <div class="row">
+        <div class="col-md-6">
+          <strong>Type:</strong> ${db.type}<br>
+          <strong>Pricing:</strong> ${db.pricing}<br>
+          <strong>Support:</strong> ${db.support}<br>
+          <strong>Serializability:</strong> ${db.serializability}<br>
+          <strong>UI:</strong> ${db.ui}<br>
+          <strong>Querying:</strong> ${db.querying}<br>
+          <strong>Transactions:</strong> ${db.transactions}
+        </div>
+        <div class="col-md-6">
+          <strong>Analytics:</strong> ${db.analytics}<br>
+          <strong>Concurrency:</strong> ${db.concurrency}<br>
+          <strong>Indexing:</strong> ${db.indexing}<br>
+          <strong>Streaming:</strong> ${db.streaming}<br>
+          <strong>Scalability:</strong> ${db.scalability}<br>
+          <strong>Backup:</strong> ${db.backup}<br>
+          <strong>Security:</strong> ${db.security}
+        </div>
+      </div>
     `;
-  }
-  
+  }  
   
   
 const questions = [
@@ -42,14 +41,6 @@ const questions = [
     },
     // Add more questions here...
   ];
-  
-  const databases = {
-    'Neo4j': { description: 'A popular labeled property graph database.', link: 'https://neo4j.com' },
-    'Stardog': { description: 'An RDF-focused database with reasoning capabilities.', link: 'https://www.stardog.com' },
-    'GraphDB': { description: 'A powerful RDF database with SPARQL support.', link: 'https://www.ontotext.com/products/graphdb/' },
-    'TigerGraph': { description: 'An enterprise-focused database optimized for scalability.', link: 'https://www.tigergraph.com' }
-  };
-  
   
   let currentQuestionIndex = 0;
   let score = {};
@@ -130,41 +121,22 @@ const questions = [
     }
   }
   
-  function showResults() {
-    const resultsContainer = document.getElementById('results');
-    const resultsList = document.getElementById('results-list');
-    resultsContainer.classList.remove('d-none');
-  
+  function saveQuizResultsToStorage() {
     const sortedResults = Object.keys(score)
       .sort((a, b) => score[b] - score[a])
-      .map(db => ({ name: db, score: score[db], description: databases[db].description }));
+      .map(db => ({ name: db, score: score[db] }));
   
-    sortedResults.forEach(result => {
-      const listItem = document.createElement('li');
-      listItem.classList.add('list-group-item');
-      
-      // Fetch the table details for the database
-      const dbDetails = showDatabaseDetails(result.name);
-      
-      listItem.innerHTML = `
-        <strong><a href="${databases[result.name].link}" target="_blank" class="db-link">${result.name}</a></strong> (Score: ${result.score})<br>
-        <img src="images/${result.name.toLowerCase()}.png" alt="${result.name}" class="img-fluid mb-2" style="max-width: 100px;"><br>
-        ${result.description}<br>
-        ${dbDetails}`;  // Show the formatted table row details
-      resultsList.appendChild(listItem);
-    });
+    // Save sorted results to localStorage
+    localStorage.setItem('quizResults', JSON.stringify(sortedResults));
   
-    document.getElementById('quiz-container').classList.add('d-none');
-  
-    // Add red, centered, wider restart button
-    const restartButton = document.createElement('button');
-    restartButton.classList.add('btn', 'btn-danger', 'mt-3', 'btn-block');
-    restartButton.style.width = '50%';  // Wider
-    restartButton.style.margin = '0 auto';  // Centered
-    restartButton.innerText = 'Restart Quiz';
-    restartButton.onclick = () => window.location.reload();
-    resultsContainer.appendChild(restartButton);
+    // Redirect to the results page
+    window.location.href = 'results.html';  // Assuming results page is named results.html
   }
+  
+  function showResults() {
+    saveQuizResultsToStorage();  // Call the function to save results and redirect
+  }
+  
   
   
   
