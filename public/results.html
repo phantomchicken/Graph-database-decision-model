@@ -10,13 +10,20 @@
 <body>
   <div class="container mt-5">
     <h1 class="text-center">Decision model results</h1>
-    <div id="results-list" class="list-group mt-4"></div>
-    <button id="restart-btn" class="btn btn-danger mt-3 w-50 mx-auto d-block">Restart decision model</button>
-    <!-- Floating Button for Scroll to Top/Bottom -->
-    <button id="scrollBtn" class="btn btn-primary rounded-circle" style="position: fixed; bottom: 30px; right: 30px; z-index: 100;">
+    
+    <div class="row" id="results-list"></div> <!-- Bootstrap row for two-column layout -->
+    
+    <button id="restart-btn" class="btn btn-danger mt-3 mb-3 w-50 mx-auto d-block">Restart decision model</button>
+
+    <!-- Floating Buttons for Scroll to Top/Bottom -->
+    <button id="scrollUpBtn" class="btn btn-primary rounded-circle" style="position: fixed; bottom: 80px; right: 30px; z-index: 100;">
         &#8679;
     </button>
-  
+    
+    <button id="scrollDownBtn" class="btn btn-primary rounded-circle" style="position: fixed; bottom: 30px; right: 30px; z-index: 100;">
+        &#8681;
+    </button>
+
   </div>
 
   <script src="databaseTable.js"></script>
