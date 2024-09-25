@@ -31,7 +31,8 @@ function showDatabaseDetails(db) {
         { text: "Object", points: { 'OrientDB': 10 } },
         { text: "Column", points: { 'Azure Cosmos DB': 10, 'DataStax': 10 } },
         { text: "Document", points: { 'ArangoDB': 10, 'Azure Cosmos DB': 10, 'OrientDB': 10 } },
-        { text: "Key-value", points: { 'ArangoDB': 10, 'Azure Cosmos DB': 10, 'OrientDB': 10 } }
+        { text: "Key-value", points: { 'ArangoDB': 10, 'Azure Cosmos DB': 10, 'OrientDB': 10 } },
+        { text: "No", points: {} }
       ]
     },
     {
@@ -119,7 +120,8 @@ function showDatabaseDetails(db) {
         { text: "SPARQL", points: { 'Stardog': 10, 'GraphDB': 10, 'Amazon Neptune': 10, 'AnzoGraph': 10 } },
         { text: "Gremlin", points: { 'Amazon Neptune': 10, 'Azure Cosmos DB': 10, 'DataStax': 10, 'JanusGraph': 10 } },
         { text: "GraphQL", points: { 'Dgraph': 10 } },
-        { text: "Custom/other", points: { 'TigerGraph': 10, 'NebulaGraph': 10, 'ArangoDB': 10, 'OrientDB': 10, 'HyperGraphDB': 10, 'TerminusDB': 10, 'OracleGraph': 10 } }
+        { text: "Custom/other", points: { 'TigerGraph': 10, 'NebulaGraph': 10, 'ArangoDB': 10, 'OrientDB': 10, 'HyperGraphDB': 10, 'TerminusDB': 10, 'OracleGraph': 10 } },
+        { text: "No preference", points: {} }
       ]
     }
   ];
@@ -196,21 +198,39 @@ function showDatabaseDetails(db) {
   let quizAnswers = [];
 
   function addPoints(points, question, selectedAnswer) {
+    // Reset points for this question to avoid duplicating points
     for (const db in points) {
       if (!score[db]) {
         score[db] = 0;
       }
-      score[db] += points[db];
+  
+      // Remove previously assigned points for this database from this question
+      const previousAnswerIndex = quizAnswers.findIndex(answer => answer.question === question);
+      if (previousAnswerIndex !== -1) {
+        const previousPoints = quizAnswers[previousAnswerIndex].points;
+        if (previousPoints[db]) {
+          score[db] -= previousPoints[db];
+        }
+      }
+  
+      // Assign new points for the current answer
+      score[db] += points[db] || 0;
     }
   
-    // Store the user's selected answer
-    quizAnswers.push({ question, selectedAnswer });
+    // Check if the user has already answered this question
+    const existingAnswerIndex = quizAnswers.findIndex(answer => answer.question === question);
   
-    // Save the answers to localStorage
+    if (existingAnswerIndex !== -1) {
+      // If the answer exists, update it with the new answer and points
+      quizAnswers[existingAnswerIndex] = { question, selectedAnswer, points };
+    } else {
+      // Otherwise, push a new entry
+      quizAnswers.push({ question, selectedAnswer, points });
+    }
+  
+    // Save the answers and questions to localStorage
     localStorage.setItem('quizAnswers', JSON.stringify(quizAnswers));
-    // Save questions to localStorage
     localStorage.setItem('questionsData', JSON.stringify(questions));
-
   
     currentQuestionIndex++;
     if (currentQuestionIndex < questions.length) {
@@ -218,7 +238,7 @@ function showDatabaseDetails(db) {
     } else {
       showResults();
     }
-  }
+  }  
   
   function saveQuizResultsToStorage() {
     const sortedResults = Object.keys(score)
