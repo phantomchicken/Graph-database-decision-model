@@ -13,7 +13,7 @@ It consists of a set of questions based on which databases are scored.
 After answering all questions the result page is shown, with the best-fitting databases shown first.
 
 
-<img src="public/images/decision-model-screenshot.png" width="700px"></img>
+<img src="public/images/decision-model-screenshot3.png" width="700px"></img>
 
 <hr>
 Copyright:
