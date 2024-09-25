@@ -13,20 +13,20 @@
       left: 10px;
       top: 80px;
       width: 350px;
-      max-height: 100%;
-      overflow-y: auto;
+      max-height: calc(100vh - 100px); /* Dynamic height based on viewport */
       background-color: #f8f9fa;
       border: 1px solid #ddd;
       padding: 15px;
       border-radius: 8px;
       z-index: 100;
-      transition: transform 0.3s ease-in-out; /* Animation for expand/collapse */
-      transform: translateX(-100%); /* Initially hidden */
+      overflow: hidden; /* Ensure no scrollbar for the block itself */
+      transition: transform 0.3s ease-in-out;
+      transform: translateX(-100%);
     }
 
     /* Expanded state */
     #answers-block.expanded {
-      transform: translateX(0); /* Fully visible */
+      transform: translateX(0);
     }
 
     /* Style for the toggle button */
@@ -55,7 +55,7 @@
 
     /* Make the answer list scrollable */
     #answers-list {
-      max-height: 700px;
+      max-height: 600px;
       overflow-y: auto;
     }
 
